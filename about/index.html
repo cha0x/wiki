@@ -9,17 +9,17 @@
         <meta name="keywords" content="关于" />
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="&amp;emsp;&amp;emsp;欢迎来到WikiNEU，这里传授大学经验～  本站宗旨&amp;emsp;&amp;emsp;完全的公益组织，以维基的形式，借助GitHub，多人协作，通过学长学姐整合自己的大学经验，帮助后来的学弟学妹们。&amp;emsp;&amp;emsp;薪火相传…今日你是受益者，明日你是传授者…  本站目标&amp;emsp;&amp;emsp;让后来人对大学有一个较为清晰的认识，不那么迷茫。&amp;emsp;&amp;emsp;能帮助一个同">
+    <meta name="description" content="关于我">
 <meta property="og:type" content="website">
 <meta property="og:title" content="关于">
-<meta property="og:url" content="https://wikineu.github.io/about/index.html">
+<meta property="og:url" content="https://wiki.cvblogs.cn/about/index.html">
 <meta property="og:site_name" content="wiki">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;欢迎来到WikiNEU，这里传授大学经验～  本站宗旨&amp;emsp;&amp;emsp;完全的公益组织，以维基的形式，借助GitHub，多人协作，通过学长学姐整合自己的大学经验，帮助后来的学弟学妹们。&amp;emsp;&amp;emsp;薪火相传…今日你是受益者，明日你是传授者…  本站目标&amp;emsp;&amp;emsp;让后来人对大学有一个较为清晰的认识，不那么迷茫。&amp;emsp;&amp;emsp;能帮助一个同">
+<meta property="og:description" content="关于我">
 <meta property="og:locale" content="zh-CH">
-<meta property="og:updated_time" content="2017-08-28T03:32:29.000Z">
+<meta property="og:updated_time" content="2017-09-21T13:25:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;欢迎来到WikiNEU，这里传授大学经验～  本站宗旨&amp;emsp;&amp;emsp;完全的公益组织，以维基的形式，借助GitHub，多人协作，通过学长学姐整合自己的大学经验，帮助后来的学弟学妹们。&amp;emsp;&amp;emsp;薪火相传…今日你是受益者，明日你是传授者…  本站目标&amp;emsp;&amp;emsp;让后来人对大学有一个较为清晰的认识，不那么迷茫。&amp;emsp;&amp;emsp;能帮助一个同">
+<meta name="twitter:description" content="关于我">
     
 
     
@@ -145,6 +145,93 @@
                 <aside id="sidebar">
    
         
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            网页开发
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/网页开发/给项目仓库配置二级个性域名/">配置项目仓库的个性化二级域名</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/index/">欢迎来到我的Wiki</a></li>  </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
     
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
@@ -189,15 +276,7 @@
                 
             
             
-            <font size="4">&emsp;&emsp;欢迎来到<a href="https://wikineu.github.io/">WikiNEU</a>，这里传授大学经验～</font>
-
-<h2 id="本站宗旨"><a href="#本站宗旨" class="headerlink" title="本站宗旨"></a>本站宗旨</h2><font size="4">&emsp;&emsp;完全的公益组织，以维基的形式，借助GitHub，多人协作，通过学长学姐整合自己的大学经验，帮助后来的学弟学妹们。<br><br>&emsp;&emsp;薪火相传…今日你是受益者，明日你是传授者…<br></font>
-
-<h2 id="本站目标"><a href="#本站目标" class="headerlink" title="本站目标"></a>本站目标</h2><font size="4">&emsp;&emsp;让后来人对大学有一个较为清晰的认识，不那么迷茫。<br>&emsp;&emsp;能帮助一个同学，这个网站就有它的意义！<br></font>
-
-
-<h2 id="缓慢更新中…"><a href="#缓慢更新中…" class="headerlink" title="缓慢更新中…"></a>缓慢更新中…</h2><font size="4">&emsp;&emsp;敬请期待</font>
-
+            <h3 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h3>
         </div>
         
     <footer class="article-footer">
